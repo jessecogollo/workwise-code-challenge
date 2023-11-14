@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ArticlesService } from '../../../domains/articles/articles.service';
 import { Article } from '../../../domains/articles/articles.types';
+import { UpdateResult } from 'typeorm';
 
 @Controller('articles')
 export class ArticlesController {
@@ -25,18 +26,17 @@ export class ArticlesController {
   }
 
   @Put()
-  updateArticle(@Body() article: Article): Promise<Article | null> {
+  updateArticle(@Body() article: Article): Promise<UpdateResult | null> {
     return this.articleService.edit(article);
   }
 
   @Get(':id')
-  getArticle(@Param() id: number): Promise<Article | null> {
-    console.log('getArticle', id);
+  getArticle(@Param('id') id: number): Promise<Article | null> {
     return this.articleService.findOneBy(id);
   }
 
   @Delete(':id')
-  deleteArticle(@Param() id: number): Promise<void> {
+  deleteArticle(@Param('id') id: number): Promise<void> {
     return this.articleService.delete(id);
   }
 }
