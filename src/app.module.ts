@@ -5,8 +5,10 @@ import { AppService } from './app.service';
 import { ArticlesController } from './drivers/http/articles/articles.controller';
 import { ArticlesService } from './domains/articles/articles.service';
 
+import { MysqlConfigModule } from './drivers/mysql/mysql.module';
+
 @Module({
-  imports: [],
+  imports: [MysqlConfigModule],
   controllers: [AppController, ArticlesController],
   providers: [AppService, ArticlesService],
 })

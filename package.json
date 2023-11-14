@@ -17,16 +17,25 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm:build": "tsc",
+    "migrations:create": "cd ./src/drivers/mysql/migrations && typeorm migration:create -t . -o",
+    "migrations:up": "pnpm run typeorm:build && typeorm -d ./dist/src/drivers/mysql/mysql.provider.js migration:run",
+    "migrations:down": "pnpm run typeorm:build && typeorm -d ./dist/src/drivers/mysql/mysql.provider.js migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/typeorm": "^10.0.0",
     "@sinclair/typebox": "^0.31.23",
+    "dotenv": "^16.3.1",
+    "mysql2": "^3.6.3",
     "nestjs-typebox": "^2.6.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
