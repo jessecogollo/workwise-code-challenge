@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { Articles } from './articles.entity';
 import { Article as ArticleDTO, ArticleRepository } from './articles.types';
@@ -29,8 +29,9 @@ export class ArticlesService implements ArticleRepository {
     await this.articlesRepository.insert(article);
   }
 
-  async edit(article: ArticleDTO): Promise<UpdateResult> {
-    return await this.articlesRepository.update(article.id, article);
+  async edit(article: ArticleDTO): Promise<ArticleDTO | null> {
+    await this.articlesRepository.update(article.id, article);
+    return this.articlesRepository.findOneBy({ id: article.id });
   }
 
   async findOneBy(id: number): Promise<Articles | null> {

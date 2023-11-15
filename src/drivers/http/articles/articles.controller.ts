@@ -13,7 +13,6 @@ import { Type } from '@sinclair/typebox';
 
 import { ArticlesService } from '../../../domains/articles/articles.service';
 import { Article, ArticleDTO } from '../../../domains/articles/articles.types';
-import { UpdateResult } from 'typeorm';
 
 @Controller('articles')
 export class ArticlesController {
@@ -47,9 +46,9 @@ export class ArticlesController {
   @HttpCode(200)
   @Validate({
     request: [{ type: 'body', schema: Type.Partial(ArticleDTO) }],
-    response: Type.Any(),
+    response: ArticleDTO,
   })
-  updateArticle(@Body() body: Article): Promise<UpdateResult> {
+  updateArticle(@Body() body: Article): Promise<Article | null> {
     return this.articleService.edit(body);
   }
 

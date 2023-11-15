@@ -1,5 +1,4 @@
 import { Type, Static } from '@sinclair/typebox';
-// import { UpdateResult } from 'typeorm';
 
 export const ArticleDTO = Type.Object({
   id: Type.Number(),
@@ -16,7 +15,7 @@ export type Article = Static<typeof ArticleDTO>;
 export interface ArticleRepository {
   findAll(): Promise<Article[]>;
   insert(article: Article): Promise<void>;
-  edit(article: Article): Promise<any>;
+  edit(article: Article): Promise<Article>;
   findOneBy(id: number): Promise<Article | null>;
   delete(id: number): Promise<void>;
 }
