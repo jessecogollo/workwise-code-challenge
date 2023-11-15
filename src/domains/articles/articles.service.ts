@@ -14,7 +14,14 @@ export class ArticlesService implements ArticleRepository {
 
   findAll(): Promise<Articles[]> {
     return this.articlesRepository.find({
-      select: ['id', 'title', 'author', 'published_at', 'created_at'],
+      select: [
+        'id',
+        'title',
+        'author',
+        'published_at',
+        'created_at',
+        'updated_at',
+      ],
     });
   }
 
@@ -22,7 +29,7 @@ export class ArticlesService implements ArticleRepository {
     await this.articlesRepository.insert(article);
   }
 
-  async edit(article: ArticleDTO): Promise<UpdateResult | null> {
+  async edit(article: ArticleDTO): Promise<UpdateResult> {
     return await this.articlesRepository.update(article.id, article);
   }
 
